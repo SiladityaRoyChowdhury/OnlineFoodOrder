@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30002.166
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Omf.RestaurantManagementService", "RestaurantManagementService\Omf.RestaurantManagementService.csproj", "{C28835F1-5937-4A96-AF23-B53BDE8AF361}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Omf.OrderManagementService", "Omf.OrderManagementService\Omf.OrderManagementService.csproj", "{1D4419A9-731C-469A-8C4E-6A96C0F32D9F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C28835F1-5937-4A96-AF23-B53BDE8AF361}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C28835F1-5937-4A96-AF23-B53BDE8AF361}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C28835F1-5937-4A96-AF23-B53BDE8AF361}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C28835F1-5937-4A96-AF23-B53BDE8AF361}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D4419A9-731C-469A-8C4E-6A96C0F32D9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D4419A9-731C-469A-8C4E-6A96C0F32D9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D4419A9-731C-469A-8C4E-6A96C0F32D9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D4419A9-731C-469A-8C4E-6A96C0F32D9F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E14DB143-DB0E-4C13-8C7A-93E66CAC8D22}
+	EndGlobalSection
+EndGlobal
