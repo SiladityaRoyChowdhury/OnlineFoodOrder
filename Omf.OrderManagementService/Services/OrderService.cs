@@ -1,5 +1,6 @@
 ﻿using Omf.OrderManagementService.Data;
 using Omf.OrderManagementService.DomainModel;
+using Omf.OrderManagementService.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,12 +16,28 @@ namespace Omf.OrderManagementService.Services
             _orderRepository = orderRepository;
         }
 
-        public async Task<IEnumerable<Order>> GetAllOrders() 
-            => await _orderRepository.GetAllOrdersAsync();
-
-        public Task<IEnumerable<Order>> GetUserOrders(Guid userId)
+        public async Task<IEnumerable<Order>> GetAllOrders()
         {
-            throw new NotImplementedException();
+            var orders = await _orderRepository.GetAllOrdersAsync();
+
+            return RemoveOrderData(orders);
+        }
+
+        public async Task<IEnumerable<Order>> GetUserOrders(Guid userId)
+        {
+            var orders = await _orderRepository.GetAllOrdersAsync();
+            return RemoveOrderData(orders).Where(x => x.UserId == userId);
+        }
+
+        private IEnumerable<Order> RemoveOrderData(IEnumerable<Order> orders)
+        {
+            foreach (var item in from order in orders
+                                 from item in order.OrderItems
+                                 select item)
+            {
+                item.Order = null;
+            }
+            return orders;
         }
     }
 }

@@ -18,13 +18,14 @@ namespace Omf.OrderManagementService.Data.Repository
         }
         public async Task<IEnumerable<Order>> GetAllOrdersAsync()
         {
-            var orders = await _orderContext.Orders.ToListAsync();
+            var orders = await _orderContext.Orders.Include(x=>x.OrderItems).ToListAsync();
             return orders;
         }
 
-        Task<IEnumerable<Order>> IOrderRepository.GetUserOrders(Guid userId)
+        public Task<IEnumerable<Order>> GetUserOrders(Guid userId)
         {
-            throw new NotImplementedException();
+            var orders = _orderContext.Orders.Where(x => x.UserId == userId);
+            return (Task<IEnumerable<Order>>)orders;
         }
     }
 }

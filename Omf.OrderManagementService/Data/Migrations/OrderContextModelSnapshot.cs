@@ -70,7 +70,7 @@ namespace Omf.OrderManagementService.Migrations
 
             modelBuilder.Entity("Omf.OrderManagementService.DomainModel.Menu", b =>
                 {
-                    b.HasOne("Omf.OrderManagementService.DomainModel.Order", null)
+                    b.HasOne("Omf.OrderManagementService.DomainModel.Order", "Order")
                         .WithMany("OrderItems")
                         .HasForeignKey("OrderId");
                 });

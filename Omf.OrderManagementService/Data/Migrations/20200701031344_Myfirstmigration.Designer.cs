@@ -10,8 +10,8 @@ using Omf.OrderManagementService.Data;
 namespace Omf.OrderManagementService.Migrations
 {
     [DbContext(typeof(OrderContext))]
-    [Migration("20200629144009_MyFirstMigration")]
-    partial class MyFirstMigration
+    [Migration("20200701031344_Myfirstmigration")]
+    partial class Myfirstmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -72,7 +72,7 @@ namespace Omf.OrderManagementService.Migrations
 
             modelBuilder.Entity("Omf.OrderManagementService.DomainModel.Menu", b =>
                 {
-                    b.HasOne("Omf.OrderManagementService.DomainModel.Order", null)
+                    b.HasOne("Omf.OrderManagementService.DomainModel.Order", "Order")
                         .WithMany("OrderItems")
                         .HasForeignKey("OrderId");
                 });

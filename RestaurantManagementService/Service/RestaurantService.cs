@@ -38,24 +38,11 @@ namespace Omf.RestaurantManagementService.Service
         private async Task<IEnumerable<RestaurantMenu>> GetRestarantMenu()
         {
             var restaurantMenus = await _restaurantRepository.GetAllRestaurantMenusAsync();
-            var restaurants = await _restaurantRepository.GetAllRestaurantAsync();
-            var menus = await _restaurantRepository.GetAllMenuAsync();
 
             foreach (var item in restaurantMenus)
             {
-                foreach (var res in from res in restaurants
-                                    where item.RestaurantId == res.RestaurantId
-                                    select res)
-                {
-                    item.Restaurant = res;
-                }
-
-                foreach (var menu in from menu in menus
-                                     where item.MenuId == menu.MenuId
-                                     select menu)
-                {
-                    item.Menu = menu;
-                }
+                item.Menu.RestaurantMenus = null;
+                item.Restaurant.RestaurantMenus = null;
             }
             return restaurantMenus;
         }

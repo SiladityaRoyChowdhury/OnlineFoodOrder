@@ -12,5 +12,6 @@ namespace Omf.OrderManagementService.DomainModel
         public decimal Price { get; set; }
         public int Quantity { get; set; }
         public string OrderId { get; set; }
+        public Order Order { get; set; }
     }
 }

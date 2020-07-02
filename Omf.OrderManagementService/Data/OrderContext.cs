@@ -29,7 +29,9 @@ namespace Omf.OrderManagementService.Data
             builder.ToTable("Menu");
             builder.Property(m => m.MenuId)
                 .IsRequired();
-            
+            //    builder.HasOne<Order>(m => m.Order)
+            //        .WithMany(o => o.OrderItems)
+            //        .HasForeignKey(m => m.OrderId);         
         }
 
         private void ConfigureOrder(EntityTypeBuilder<Order> builder)
@@ -37,8 +39,8 @@ namespace Omf.OrderManagementService.Data
             builder.ToTable("Order");
             builder.Property(c => c.OrderId)
                 .IsRequired();
-            builder.HasMany(o => o.OrderItems)
-                .WithOne()
+            builder.HasMany<Menu>(o => o.OrderItems)
+                .WithOne(m=>m.Order)
                 .HasForeignKey(o => o.OrderId);
         }
     }

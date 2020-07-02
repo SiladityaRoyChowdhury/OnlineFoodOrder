@@ -33,14 +33,14 @@ namespace Omf.OrderManagementService.Data
             }
         }
 
-        private static ICollection<Menu> GetPreconfiguredMenus()
+        private static IEnumerable<Menu> GetPreconfiguredMenus()
         {
             return new List<Menu>()
             {
-                new Menu() { MenuId="M1", Item="Chocolate Fantasy", Price = 191.0M, Quantity = 20, OrderId ="O1" },
-                new Menu() { MenuId="M3", Item="Gulab Jamun (Pack Of 10)", Price=212.0M, Quantity = 20, OrderId ="O1" },
-                new Menu() { MenuId="M4", Item="Gulkand Shot (Pack Of 5)", Price=112.0M, Quantity = 20, OrderId ="O1" },
-                new Menu() {MenuId="M2", Item="Pan Cake (Pack Of 6)",Price=248.0M, Quantity = 20, OrderId ="O2"}
+                new Menu() { MenuId="M1", Item="Chocolate Fantasy", Price = 191.0M, Quantity = 2, OrderId ="O1" },
+                new Menu() { MenuId="M3", Item="Gulab Jamun (Pack Of 10)", Price=212.0M, Quantity = 1, OrderId ="O1" },
+                new Menu() { MenuId="M4", Item="Gulkand Shot (Pack Of 5)", Price=112.0M, Quantity = 2, OrderId ="O1" },
+                new Menu() {MenuId="M2", Item="Pan Cake (Pack Of 6)",Price=248.0M, Quantity = 1, OrderId ="O2" },
             };
         }
 
@@ -49,9 +49,9 @@ namespace Omf.OrderManagementService.Data
             return new List<Order>()
             {
                 new Order() { OrderTime=DateTime.Now, OrderId="O1", RestaurantId="R1",  
-                                Status = "InProgress", UserId= new Guid(), Address="10,  Banshankari"},
+                                Status = "InProgress", UserId= new Guid(), Address="10,  Banshankari" },
                 new Order() { OrderTime=DateTime.Now, OrderId="O2", RestaurantId="R2",
-                                Status = "InProgress", UserId= new Guid(), Address="10,  Banshankari"}
+                                Status = "InProgress", UserId= new Guid(), Address="10,  Banshankari" }
             };
         }
     }

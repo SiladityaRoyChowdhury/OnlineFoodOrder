@@ -3,6 +3,7 @@ using Omf.RestaurantManagementService.DomainModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace Omf.RestaurantManagementService.Data.Repository
@@ -18,7 +19,10 @@ namespace Omf.RestaurantManagementService.Data.Repository
         }
         public async Task<IEnumerable<RestaurantMenu>> GetAllRestaurantMenusAsync()
         { 
-            var list = await _restaurantContext.RestaurantMenus.ToListAsync();
+            var list = await _restaurantContext.RestaurantMenus
+                .Include(x=>x.Restaurant)
+                .Include(x=>x.Menu)
+                .ToListAsync();
             return list;
         }
 
