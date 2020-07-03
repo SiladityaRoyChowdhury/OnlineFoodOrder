@@ -22,10 +22,28 @@ namespace Omf.OrderManagementService.Data.Repository
             return orders;
         }
 
+        public async Task<Order> GetOrderAsync(int orderId)
+        {
+            var orders = await _orderContext.Orders.Include(x => x.OrderItems).FirstOrDefaultAsync(x=>x.OrderId == orderId);
+            return orders;
+        }
+
         public Task<IEnumerable<Order>> GetUserOrders(Guid userId)
         {
             var orders = _orderContext.Orders.Where(x => x.UserId == userId);
             return (Task<IEnumerable<Order>>)orders;
+        }
+
+        public async Task CreateOrder(Order order)
+        {
+            await _orderContext.Orders.AddAsync(order);
+            await _orderContext.SaveChangesAsync();
+        }
+
+        public async Task UpdateOrder(Order order)
+        {
+            _orderContext.Update(order);
+            await _orderContext.SaveChangesAsync();
         }
     }
 }

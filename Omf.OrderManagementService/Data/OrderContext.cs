@@ -29,6 +29,7 @@ namespace Omf.OrderManagementService.Data
             builder.ToTable("Menu");
             builder.Property(m => m.MenuId)
                 .IsRequired();
+            builder.HasKey(m => new { m.OrderId, m.MenuId });
             //    builder.HasOne<Order>(m => m.Order)
             //        .WithMany(o => o.OrderItems)
             //        .HasForeignKey(m => m.OrderId);         

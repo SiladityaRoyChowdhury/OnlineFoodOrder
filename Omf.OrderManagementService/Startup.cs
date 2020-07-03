@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 using Omf.OrderManagementService.Data;
 using Omf.OrderManagementService.Data.Repository;
 using Omf.OrderManagementService.Services;
@@ -35,6 +36,13 @@ namespace Omf.OrderManagementService
 
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
+            services.AddSwaggerGen(c=>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { 
+                    Title = "OrderManagement service - Order My Food",
+                    Version = "v1"
+                });
+            });
             services.AddControllers();
         }
 
@@ -45,6 +53,11 @@ namespace Omf.OrderManagementService
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger().UseSwaggerUI( c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "OrderManagement V1");
+            });
 
             app.UseHttpsRedirection();
 

@@ -11,7 +11,8 @@ namespace Omf.OrderManagementService.Migrations
                 name: "Order",
                 columns: table => new
                 {
-                    OrderId = table.Column<string>(nullable: false),
+                    OrderId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     OrderTime = table.Column<DateTime>(nullable: false),
                     RestaurantId = table.Column<string>(nullable: true),
                     Status = table.Column<string>(nullable: true),
@@ -28,26 +29,21 @@ namespace Omf.OrderManagementService.Migrations
                 columns: table => new
                 {
                     MenuId = table.Column<string>(nullable: false),
+                    OrderId = table.Column<int>(nullable: false),
                     Item = table.Column<string>(nullable: true),
                     Price = table.Column<decimal>(nullable: false),
-                    Quantity = table.Column<int>(nullable: false),
-                    OrderId = table.Column<string>(nullable: true)
+                    Quantity = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Menu", x => x.MenuId);
+                    table.PrimaryKey("PK_Menu", x => new { x.OrderId, x.MenuId });
                     table.ForeignKey(
                         name: "FK_Menu_Order_OrderId",
                         column: x => x.OrderId,
                         principalTable: "Order",
                         principalColumn: "OrderId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Menu_OrderId",
-                table: "Menu",
-                column: "OrderId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -21,14 +21,14 @@ namespace Omf.OrderManagementService.Migrations
 
             modelBuilder.Entity("Omf.OrderManagementService.DomainModel.Menu", b =>
                 {
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
                     b.Property<string>("MenuId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Item")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OrderId")
-                        .HasColumnType("nvarchar(450)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
@@ -36,17 +36,17 @@ namespace Omf.OrderManagementService.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.HasKey("MenuId");
-
-                    b.HasIndex("OrderId");
+                    b.HasKey("OrderId", "MenuId");
 
                     b.ToTable("Menu");
                 });
 
             modelBuilder.Entity("Omf.OrderManagementService.DomainModel.Order", b =>
                 {
-                    b.Property<string>("OrderId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("OrderId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
@@ -72,7 +72,9 @@ namespace Omf.OrderManagementService.Migrations
                 {
                     b.HasOne("Omf.OrderManagementService.DomainModel.Order", "Order")
                         .WithMany("OrderItems")
-                        .HasForeignKey("OrderId");
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
