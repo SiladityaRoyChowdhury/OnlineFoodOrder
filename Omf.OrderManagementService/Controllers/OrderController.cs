@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -27,24 +26,47 @@ namespace Omf.OrderManagementService.Controllers
         [HttpGet]
         public async Task<ActionResult> Get()
         {
-            var orders = await _orderService.GetAllOrders();
-            return Ok(orders);         
+            try
+            {
+                var orders = await _orderService.GetAllOrders();
+                return Ok(orders);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("An error occured while getting order", ex.Message);
+                return Ok(HttpStatusCode.InternalServerError);
+            }
         }
 
         [HttpGet("{orderId}", Name = "GetOrder")]
-        //[Route("GetOrder/{orderId}")]
         public async Task<ActionResult> GetOrder(int orderId)
         {
-            var order = await _orderService.GetOrderAsync(orderId);
-            return Ok(order);
+            try
+            {
+                var order = await _orderService.GetOrderAsync(orderId);
+                return Ok(order);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("An error occured while getting order", ex.Message);
+                return Ok(HttpStatusCode.InternalServerError);
+            }
         }
 
         [HttpGet]
         [Route("GetUserOrders/{userId}")]
         public async Task<ActionResult> GetUserOrders(Guid userId)
         {
-            var orders = await _orderService.GetUserOrders(userId);
-            return Ok(orders);
+            try
+            {
+                var orders = await _orderService.GetUserOrders(userId);
+                return Ok(orders);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("An error occured while getting order", ex.Message);
+                return Ok(HttpStatusCode.InternalServerError);
+            }
         }
 
         [HttpPost]
@@ -73,10 +95,11 @@ namespace Omf.OrderManagementService.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPut]
         [Route("Update")]
         [ProducesResponseType((int)HttpStatusCode.Accepted)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         public async Task<IActionResult> UpdateOrder([FromBody] Order order)
         {
             order.OrderTime = DateTime.Now;
@@ -89,7 +112,7 @@ namespace Omf.OrderManagementService.Controllers
                     if (order.Status == OrderStatus.OrderAccepted.ToString())
                     {
                         order.Status = OrderStatus.InProgress.ToString();
-                        await _orderService.CreateOrder(order);
+                        await _orderService.UpdateOrder(order);
                         _logger.LogInformation("Order Updated to database Successfully");
                         order.Status = OrderStatus.OrderAccepted.ToString();
                     }

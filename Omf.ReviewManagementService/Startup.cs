@@ -1,22 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.EntityFrameworkCore;
-using Omf.RestaurantManagementService.Data;
-using Omf.RestaurantManagementService.Data.Repository;
-using Omf.RestaurantManagementService.Service;
+using Omf.ReviewManagementService.Data.Repository;
+using Omf.ReviewManagementService.Service;
+using Omf.ReviewManagementService.Data;
 using Microsoft.OpenApi.Models;
 
-namespace Omf.RestaurantManagementService
+namespace Omf.ReviewManagementService
 {
     public class Startup
     {
@@ -30,18 +23,18 @@ namespace Omf.RestaurantManagementService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<RestaurantContext>(options => options.UseSqlServer(Configuration["ConnectionString"]));
-            services.AddTransient<IRestaurantRepository, RestaurantRepository>();
-            services.AddTransient<IRestaurantService, RestaurantService>();
+            services.AddDbContext<ReviewContext>(options => options.UseSqlServer(Configuration["ConnectionString"]));
+            services.AddTransient<IReviewRepository, ReviewRepository>();
+            services.AddTransient<IReviewService, ReviewService>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = "RestaurantManagement service - Order My Food",
+                    Title = "ReviewManagement service - Order My Food",
                     Version = "v1"
                 });
             });
-            services.AddControllers();          
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,7 +47,7 @@ namespace Omf.RestaurantManagementService
 
             app.UseSwagger().UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "RestaurantManagement V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "ReviewManagement V1");
             });
 
             app.UseHttpsRedirection();

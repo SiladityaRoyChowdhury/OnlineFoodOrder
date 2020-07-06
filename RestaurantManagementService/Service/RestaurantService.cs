@@ -32,7 +32,6 @@ namespace Omf.RestaurantManagementService.Service
                                      select r;
 
             return filteredRestaurant;
-
         }
 
         private async Task<IEnumerable<RestaurantMenu>> GetRestarantMenu()
