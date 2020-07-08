@@ -3,8 +3,10 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
+using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Omf.Common.Events;
 using Omf.OrderManagementService.DomainModel;
 using Omf.OrderManagementService.Services;
 
@@ -16,11 +18,13 @@ namespace Omf.OrderManagementService.Controllers
     {
         private readonly IOrderService _orderService;
         private readonly ILogger<OrderController> _logger;
+        private IBus _bus;
 
-        public OrderController(IOrderService orderService, ILogger<OrderController> logger)
+        public OrderController(IOrderService orderService, ILogger<OrderController> logger, IBus bus)
         {
             _orderService = orderService;
             _logger = logger;
+            _bus = bus;
         }
 
         [HttpGet]
@@ -73,7 +77,7 @@ namespace Omf.OrderManagementService.Controllers
         [Route("Create")]
         [ProducesResponseType((int)HttpStatusCode.Accepted)]
         [ProducesResponseType((int)HttpStatusCode.Accepted)]
-        public async Task<IActionResult> CreateOrder([FromBody] Order order)
+        public async Task CreateOrder([FromBody] Order order)
         {
             order.Status = OrderStatus.InProgress.ToString();
             order.OrderTime = DateTime.Now;
@@ -83,15 +87,19 @@ namespace Omf.OrderManagementService.Controllers
             {                
                 await _orderService.CreateOrder(order);
                 _logger.LogInformation("Order added to database Successfully");
-                order.Status = OrderStatus.OrderAccepted.ToString();
-                order.OrderItems.ToList().ForEach(s => s.Order = null);
-                return CreatedAtRoute("GetOrder", new { orderId = order.OrderId }, order);
+                await _bus.Publish(new PaymentInitiatedEvent(order.OrderId));
+                order.Status = OrderStatus.PreparingOrder.ToString();
+                await _orderService.UpdateOrder(order);
+                //order.OrderItems.ToList().ForEach(s => s.Order = null);
+                //return CreatedAtRoute("GetOrder", new { orderId = order.OrderId }, order);
+                await _bus.Publish(new OrderConfirmedEvent(order.OrderId, order.RestaurantId, order.OrderItems,
+                        order.Address));
             }
             catch(Exception ex)
             {
                 _logger.LogError("An error occured while adding new order", ex.Message);
                 order.Status = OrderStatus.FailToOrder.ToString();
-                return Ok(order);
+                //return Ok(order);
             }
         }
 
