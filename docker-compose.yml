@@ -1,0 +1,103 @@
+version: "3.4"
+
+networks:
+  frontend:
+  backend:
+
+
+services:
+          
+  customer:
+    image: ordermyfood/customer
+    build: 
+      context: .\src\Services\Omf.CustomerManagementService
+      dockerfile: Dockerfile
+    environment: 
+      - ConString=server=192.168.1.103,1445;Database=CustomerDatabase;User Id=sa;Password=ProductApi(!);MultipleActiveResultSets=true
+    container_name: customermanagement
+    ports:
+      - "5500:80"
+    networks:
+      - backend
+      - frontend 
+    depends_on:
+      - mssqlserver 
+      - rabbitmq
+    
+  order:
+    image: ordermyfood/order
+    build: 
+      context: .\src\Services\Omf.OrderManagementService
+      dockerfile: Dockerfile
+    
+    environment: 
+      - ConString=server=192.168.1.103,1445;Database=OrderDatabase;User Id=sa;Password=ProductApi(!);MultipleActiveResultSets=true
+    container_name: ordermanagement
+    ports:
+      - "5601:80"
+    networks:
+      - backend
+      - frontend 
+    depends_on:
+      - mssqlserver
+      - rabbitmq
+
+  restaurant:
+    image: ordermyfood/restaurant
+    build: 
+      context: .\src\Services\Omf.RestaurantManagementService
+      dockerfile: Dockerfile  
+
+    environment: 
+      - ConString=server=192.168.1.103,1445;Database=RestaurantDatabase;User Id=sa;Password=ProductApi(!);MultipleActiveResultSets=true
+    container_name: restaurantmanagement
+    ports:
+      - "5700:80"
+    networks:
+      - backend
+      - frontend 
+    depends_on:
+      - mssqlserver
+      - rabbitmq
+
+  review:
+    image: ordermyfood/review
+    build: 
+      context: .\src\Services\Omf.ReviewManagementService
+      dockerfile: Dockerfile  
+
+    environment: 
+      - ConString=server=192.168.1.103,1445;Database=ReviewDatabase;User Id=sa;Password=ProductApi(!);MultipleActiveResultSets=true
+    container_name: reviewmanagement
+    ports:
+      - "5800:80"
+    networks:
+      - backend
+      - frontend 
+    depends_on:
+      - mssqlserver
+      - rabbitmq
+
+  mssqlserver:
+    image: "microsoft/mssql-server-linux:2017-latest"
+    container_name: mssqldata
+    ports:
+      - "1445:1433" 
+    networks:
+      - backend
+    environment:
+      - SA_PASSWORD=ProductApi(!)
+      - ACCEPT_EULA="Y"
+  
+  rabbitmq:
+     image: rabbitmq:3-management
+     container_name: rabbitmq
+     hostname: myrabbitmq
+     ports:
+        - "15672:15672"
+        - "5672:5672"
+        - "5671:5671"
+     volumes:
+        - ~/rabbitmq:/var/lib/rabbitmq/mnesia   
+     networks:
+       - backend 

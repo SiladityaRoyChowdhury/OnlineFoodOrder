@@ -3,13 +3,22 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30002.166
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Omf.RestaurantManagementService", "RestaurantManagementService\Omf.RestaurantManagementService.csproj", "{C28835F1-5937-4A96-AF23-B53BDE8AF361}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{AABF53F8-74BB-44AF-A8EA-A5D93A03E481}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Omf.OrderManagementService", "Omf.OrderManagementService\Omf.OrderManagementService.csproj", "{1D4419A9-731C-469A-8C4E-6A96C0F32D9F}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{71ABD4E8-61F6-454C-BFD9-04FDE63CA366}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Omf.ReviewManagementService", "Omf.ReviewManagementService\Omf.ReviewManagementService.csproj", "{C76A69C1-2A43-40D2-A15D-C698B88D48DF}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{6334D566-A5DC-46C0-BF65-E5B1986E7383}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Omf.CustomerManagementService", "Omf.CustomerManagementService\Omf.CustomerManagementService.csproj", "{345558E7-1B64-4ABE-A0A1-7AE4CEA6C06A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Omf.CustomerManagementService", "src\Services\Omf.CustomerManagementService\Omf.CustomerManagementService.csproj", "{9A8DFBCA-12BE-47CD-9671-41B7A9056A0B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Omf.OrderManagementService", "src\Services\Omf.OrderManagementService\Omf.OrderManagementService.csproj", "{87621143-2668-45CB-8392-10C09857E29B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Omf.RestaurantManagementService", "src\Services\Omf.RestaurantManagementService\Omf.RestaurantManagementService.csproj", "{A67FCEE2-85E8-473A-8901-CF4839D95B84}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Omf.ReviewManagementService", "src\Services\Omf.ReviewManagementService\Omf.ReviewManagementService.csproj", "{DC4A0545-D5FA-4A3D-8871-8842D69C3D9A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,25 +26,32 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C28835F1-5937-4A96-AF23-B53BDE8AF361}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C28835F1-5937-4A96-AF23-B53BDE8AF361}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C28835F1-5937-4A96-AF23-B53BDE8AF361}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C28835F1-5937-4A96-AF23-B53BDE8AF361}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1D4419A9-731C-469A-8C4E-6A96C0F32D9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1D4419A9-731C-469A-8C4E-6A96C0F32D9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1D4419A9-731C-469A-8C4E-6A96C0F32D9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1D4419A9-731C-469A-8C4E-6A96C0F32D9F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C76A69C1-2A43-40D2-A15D-C698B88D48DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C76A69C1-2A43-40D2-A15D-C698B88D48DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C76A69C1-2A43-40D2-A15D-C698B88D48DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C76A69C1-2A43-40D2-A15D-C698B88D48DF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{345558E7-1B64-4ABE-A0A1-7AE4CEA6C06A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{345558E7-1B64-4ABE-A0A1-7AE4CEA6C06A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{345558E7-1B64-4ABE-A0A1-7AE4CEA6C06A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{345558E7-1B64-4ABE-A0A1-7AE4CEA6C06A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A8DFBCA-12BE-47CD-9671-41B7A9056A0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A8DFBCA-12BE-47CD-9671-41B7A9056A0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A8DFBCA-12BE-47CD-9671-41B7A9056A0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A8DFBCA-12BE-47CD-9671-41B7A9056A0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87621143-2668-45CB-8392-10C09857E29B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87621143-2668-45CB-8392-10C09857E29B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87621143-2668-45CB-8392-10C09857E29B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87621143-2668-45CB-8392-10C09857E29B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A67FCEE2-85E8-473A-8901-CF4839D95B84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A67FCEE2-85E8-473A-8901-CF4839D95B84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A67FCEE2-85E8-473A-8901-CF4839D95B84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A67FCEE2-85E8-473A-8901-CF4839D95B84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC4A0545-D5FA-4A3D-8871-8842D69C3D9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC4A0545-D5FA-4A3D-8871-8842D69C3D9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC4A0545-D5FA-4A3D-8871-8842D69C3D9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC4A0545-D5FA-4A3D-8871-8842D69C3D9A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6334D566-A5DC-46C0-BF65-E5B1986E7383} = {71ABD4E8-61F6-454C-BFD9-04FDE63CA366}
+		{9A8DFBCA-12BE-47CD-9671-41B7A9056A0B} = {6334D566-A5DC-46C0-BF65-E5B1986E7383}
+		{87621143-2668-45CB-8392-10C09857E29B} = {6334D566-A5DC-46C0-BF65-E5B1986E7383}
+		{A67FCEE2-85E8-473A-8901-CF4839D95B84} = {6334D566-A5DC-46C0-BF65-E5B1986E7383}
+		{DC4A0545-D5FA-4A3D-8871-8842D69C3D9A} = {6334D566-A5DC-46C0-BF65-E5B1986E7383}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E14DB143-DB0E-4C13-8C7A-93E66CAC8D22}
